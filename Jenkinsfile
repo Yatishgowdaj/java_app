@@ -70,7 +70,7 @@ pipeline {
                 script {
                     if ( DEPLOY_CHOICE == 'yes') {
                         echo "Deploying to Tomcat10: $TOMCAT_URL"
-                        deploy adapters: [tomcat9(credentialsId: 'tomcat-manager', path: '', url: "${env.TOMCAT_URL}")],
+                        deploy adapters: [tomcat9(credentialsId: 'tomcat-manger', path: '', url: "${env.TOMCAT_URL}")],
                                          contextPath: "${env.CONTEXT_PATH}",
                                          war: 'calculator_app/target/calculator.war'
                     } else {
