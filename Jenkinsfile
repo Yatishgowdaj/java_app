@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'maven_tool'
+        maven 'maven-3.9.2'
     }
 
     options {
@@ -10,7 +10,7 @@ pipeline {
     }
 
     environment {
-        TOMCAT_URL = 'http://3.109.213.90:8080'
+        TOMCAT_URL = 'http://16.4.25.31:8080/'
         CONTEXT_PATH = '/calculator'
     }
 
@@ -20,8 +20,8 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM',
                         branches: [[name: 'main']],
-                        userRemoteConfigs: [[url: 'https://github.com/harshaprakash100/java_app.git',
-                        credentialsId: 'github_hp']]])
+                        userRemoteConfigs: [[url: 'https://github.com/Yatishgowdaj/java_app',
+                        credentialsId: '2b3039ac-529c-48db-9b3f-23f09543e14f']]])
             }
         }
 
@@ -70,7 +70,7 @@ pipeline {
                 script {
                     if ( DEPLOY_CHOICE == 'yes') {
                         echo "Deploying to Tomcat10: $TOMCAT_URL"
-                        deploy adapters: [tomcat9(credentialsId: 'tomcat_manager', path: '', url: "${env.TOMCAT_URL}")],
+                        deploy adapters: [tomcat9(credentialsId: 'tomcat-manager', path: '', url: "${env.TOMCAT_URL}")],
                                          contextPath: "${env.CONTEXT_PATH}",
                                          war: 'calculator_app/target/calculator.war'
                     } else {
