@@ -9,7 +9,7 @@ pipeline {
       stage('BUILD') {
          steps {
                sh ''' 
-                  cd maven/calculator_app
+                  cd /calculator_app
                   mvn clean package -Dmaven.test.skip=true
                '''
          }
@@ -17,7 +17,7 @@ pipeline {
 
       stage('UNIT TEST') {
          steps {
-            dir("maven/calculator_app") {
+            dir("/calculator_app") {
                sh 'mvn clean test'
             }
          }
@@ -25,7 +25,7 @@ pipeline {
 
       stage('Integration TEST') {
          steps {
-            dir("maven/calculator_app") {
+            dir("/calculator_app") {
                sh 'sudo mvn clean integration-test'
             }
          }
@@ -33,7 +33,7 @@ pipeline {
 
       // stage('Deploy Tomcat Using maven plugin') {
       //    steps {
-      //       dir("maven/calculator_app") {
+      //       dir("/calculator_app") {
       //          sh 'sudo mvn tomcat7:deploy'
       //       }
       //    }
@@ -44,7 +44,7 @@ pipeline {
                 script {
                     deploy adapters: [tomcat9(credentialsId: 'tomcat-manger', path: '', url: 'http://http://3.7.65.128:9090//')], 
                                      contextPath: '/calculator', 
-                                     war: 'maven/calculator_app/target/calculator.war'
+                                     war: '/calculator_app/target/calculator.war'
                 }
          }
       }
